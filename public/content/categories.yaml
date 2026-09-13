@@ -1,0 +1,20 @@
+# =============================================================================
+# Timeline categories
+# -----------------------------------------------------------------------------
+# The primary timeline categories, their filter labels and their accent colour.
+# These are loaded at runtime so the filter checkboxes and the top timeline bar
+# can stay colour-coded without any hardcoded colours in the UI.
+# =============================================================================
+categories:
+  - id: Organization
+    label: Organizations
+    color: "#38bdf8"
+  - id: Education
+    label: Education
+    color: "#a78bfa"
+  - id: International Conference
+    label: Conferences
+    color: "#f472b6"
+  - id: Research Publication
+    label: Publications
+    color: "#34d399"

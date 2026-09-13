@@ -1,0 +1,190 @@
+.boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--bg);
+  background-image: var(--bg-gradient);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+.boot-overlay--leave {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.boot-overlay__window {
+  width: min(640px, 100%);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-glass);
+  color: var(--text);
+  font-family: var(--font-mono);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.38);
+}
+
+.boot-overlay__titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.boot-overlay__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.boot-overlay__dot--red {
+  background: #ff5f57;
+}
+
+.boot-overlay__dot--amber {
+  background: #febc2e;
+}
+
+.boot-overlay__dot--green {
+  background: #28c840;
+}
+
+.boot-overlay__title {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.boot-overlay__body {
+  padding: 1.4rem 1.5rem 1.1rem;
+  text-align: left;
+}
+
+.boot-overlay__cmd,
+.boot-overlay__line {
+  margin: 0 0 0.6rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text);
+  opacity: 0;
+  animation: boot-line 0.45s ease forwards;
+}
+
+.boot-overlay__line::before {
+  content: "▸ ";
+  color: var(--accent);
+}
+
+.boot-overlay__cmd {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.boot-overlay__line {
+  color: var(--text);
+}
+
+.boot-overlay__prompt {
+  margin: 1.1rem 0 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+  opacity: 0;
+  animation: boot-line 0.45s ease forwards;
+}
+
+.boot-overlay__prompt::before {
+  content: "❯ ";
+  color: var(--accent);
+}
+
+.boot-overlay__caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background: var(--accent);
+  animation: boot-caret 1s steps(1) infinite;
+}
+
+.boot-overlay__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.5rem 1.3rem;
+  border-top: 1px solid var(--border);
+}
+
+.boot-overlay__cta,
+.boot-overlay__skip {
+  padding: 0.55rem 0.9rem;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.boot-overlay__cta {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #04150a;
+}
+
+.boot-overlay__cta:hover,
+.boot-overlay__cta:focus-visible {
+  background: transparent;
+  color: var(--accent);
+  outline: none;
+}
+
+.boot-overlay__skip {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.boot-overlay__skip:hover,
+.boot-overlay__skip:focus-visible {
+  color: var(--text);
+  outline: none;
+}
+
+@keyframes boot-line {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes boot-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-overlay__cmd,
+  .boot-overlay__line,
+  .boot-overlay__prompt {
+    animation: none;
+    opacity: 1;
+  }
+
+  .boot-overlay__caret {
+    animation: none;
+  }
+}

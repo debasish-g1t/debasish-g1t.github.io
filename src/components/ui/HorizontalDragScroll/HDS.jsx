@@ -1,6 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
-import { PinContainer } from "../3D-pin/3D-pin.tsx";
-import { motion } from "framer-motion";
+import React, { useState, useRef } from "react";
 import "./HDS.css";
 
 const HDS = ({ children }) => {

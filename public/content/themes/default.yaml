@@ -1,0 +1,51 @@
+# =============================================================================
+# Theme definition
+# -----------------------------------------------------------------------------
+# This file describes every visual detail needed to skin the site. It is loaded
+# at runtime by src/content/themeLoader.js, which turns the `colors` block for
+# the active mode into CSS custom properties on <html>.
+#
+# `mode` controls which of the `light` / `dark` palettes is applied right now:
+#   dark  -> always use colors.dark
+#   light -> always use colors.light
+#   auto  -> follow the browser/OS colour scheme (prefers-color-scheme)
+#
+# Later this can be switched to a browser-metadata-driven theme, but the schema
+# stays the same: the UI only ever reads CSS variables, never this file.
+# =============================================================================
+id: default
+name: Default
+mode: dark
+
+fonts:
+  # CSS font-family strings. The actual font files are loaded separately
+  # (see master.css @import); these decide which family gets applied.
+  primary: "'Lato', system-ui, sans-serif"
+  heading: "'Lato', system-ui, sans-serif"
+  mono: "'SFMono-Regular', Menlo, Consolas, monospace"
+
+colors:
+  dark:
+    bg: "#050016"
+    bg_gradient: "linear-gradient(315deg, hsl(254deg 100% 4%) 0%, hsl(253deg 82% 4%) 30%, hsl(252deg 52% 4%) 54%, hsl(251deg 15% 4%) 100%)"
+    surface: "rgba(255, 255, 255, 0.05)"
+    surface_glass: "rgba(10, 6, 30, 0.55)"
+    text: "#f5f5f7"
+    text_muted: "rgba(245, 245, 247, 0.62)"
+    accent: "#22d3ee"
+    accent_2: "#a78bfa"
+    border: "rgba(255, 255, 255, 0.12)"
+    badge: "rgba(255, 255, 255, 0.12)"
+    rail: "linear-gradient(180deg, #22d3ee 0%, #a78bfa 100%)"
+  light:
+    bg: "#f7f7fb"
+    bg_gradient: "linear-gradient(315deg, #ffffff 0%, #eef0fb 60%, #e7e9f7 100%)"
+    surface: "rgba(20, 20, 40, 0.04)"
+    surface_glass: "rgba(255, 255, 255, 0.7)"
+    text: "#1a1a2e"
+    text_muted: "rgba(26, 26, 46, 0.62)"
+    accent: "#0891b2"
+    accent_2: "#7c3aed"
+    border: "rgba(20, 20, 40, 0.12)"
+    badge: "rgba(20, 20, 40, 0.08)"
+    rail: "linear-gradient(180deg, #0891b2 0%, #7c3aed 100%)"

@@ -1,0 +1,240 @@
+.timeline-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  height: var(--topbar-height);
+  box-sizing: border-box;
+  padding: 0 2rem;
+  background: var(--surface-glass);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+}
+
+.timeline-bar__inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Hidden in the default theme; the terminal theme reveals it as a blocky
+   brand (see src/theme/terminal.css). */
+.timeline-bar__brand {
+  display: none;
+}
+
+.timeline-bar__track {
+  position: relative;
+  flex: 1;
+  height: 52px;
+}
+
+.timeline-bar__rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--border);
+}
+
+.timeline-bar__progress {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 5px var(--accent);
+  opacity: 0.65;
+  pointer-events: none;
+  transition: width 0.35s ease;
+}
+
+.timeline-bar__segment {
+  position: absolute;
+  top: 13px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--dot-color, var(--accent));
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.timeline-bar__dot {
+  position: absolute;
+  top: 16px;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 1.5px solid var(--dot-color, var(--accent));
+  border-radius: 50%;
+  background: var(--bg);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Expand the hover/click hit area without enlarging the visible dot. */
+.timeline-bar__dot::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+}
+
+.timeline-bar__dot:hover,
+.timeline-bar__dot:focus-visible,
+.timeline-bar__dot.is-active {
+  opacity: 1;
+  background: var(--dot-color, var(--accent));
+  transform: translate(-50%, -50%) scale(1.4);
+  outline: none;
+}
+
+.timeline-bar__mark {
+  position: absolute;
+  top: 18px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  text-align: center;
+}
+
+.timeline-bar__mark::before {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 8px;
+  margin: 0 auto 3px;
+  background: var(--text-muted);
+  opacity: 0.5;
+}
+
+.timeline-bar__mark-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.timeline-bar__mark.is-active::before {
+  background: var(--accent);
+  opacity: 1;
+}
+
+.timeline-bar__mark.is-active .timeline-bar__mark-label {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ---------- tooltip (below the dot) ---------- */
+.timeline-bar__tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 200px;
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.timeline-bar__tooltip--start {
+  left: 50%;
+  transform: translateX(0) translateY(-4px);
+}
+
+.timeline-bar__tooltip--center {
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.timeline-bar__tooltip--end {
+  left: 50%;
+  transform: translateX(-100%) translateY(-4px);
+}
+
+.timeline-bar__dot:hover .timeline-bar__tooltip,
+.timeline-bar__dot:focus-visible .timeline-bar__tooltip {
+  opacity: 1;
+}
+
+.timeline-bar__dot:hover .timeline-bar__tooltip--start,
+.timeline-bar__dot:focus-visible .timeline-bar__tooltip--start {
+  transform: translateX(0) translateY(0);
+}
+
+.timeline-bar__dot:hover .timeline-bar__tooltip--center,
+.timeline-bar__dot:focus-visible .timeline-bar__tooltip--center {
+  transform: translateX(-50%) translateY(0);
+}
+
+.timeline-bar__dot:hover .timeline-bar__tooltip--end,
+.timeline-bar__dot:focus-visible .timeline-bar__tooltip--end {
+  transform: translateX(-100%) translateY(0);
+}
+
+.marquee {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.marquee__inner {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.marquee__inner--scroll {
+  padding-right: 1.5rem;
+}
+
+/* Start the marquee fresh on each hover, from the first word. */
+.timeline-bar__dot:hover .marquee__inner--scroll,
+.timeline-bar__dot:focus-visible .marquee__inner--scroll {
+  animation: timeline-marquee 12s linear infinite;
+}
+
+@keyframes timeline-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.timeline-bar__tooltip-date {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dot-color, var(--accent));
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .timeline-bar {
+    padding: 0 1rem;
+  }
+}

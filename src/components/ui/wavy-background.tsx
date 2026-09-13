@@ -35,6 +35,9 @@ export const WavyBackground = ({
     ctx: any,
     canvas: any;
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  // Stops the animation loop while the section is off-screen.
+  const visibleRef = useRef(true);
   const getSpeed = () => {
     switch (speed) {
       case "slow":
@@ -85,6 +88,7 @@ export const WavyBackground = ({
  
   let animationId: number;
   const render = () => {
+    if (!visibleRef.current) return; // skip work while off-screen
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = backgroundFill || "transparent";
     ctx.globalAlpha = waveOpacity || 0;
@@ -95,8 +99,27 @@ export const WavyBackground = ({
  
   useEffect(() => {
     init();
+    const el = containerRef.current;
+    let observer;
+    if (el && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            if (!visibleRef.current) {
+              visibleRef.current = true;
+              render();
+            }
+          } else {
+            visibleRef.current = false;
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      observer.observe(el);
+    }
     return () => {
       cancelAnimationFrame(animationId);
+      observer?.disconnect();
     };
   }, []);
  
@@ -112,6 +135,7 @@ export const WavyBackground = ({
  
   return (
     <div
+      ref={containerRef}
       className={cn(
         "h-screen flex flex-col items-center justify-center",
         containerClassName

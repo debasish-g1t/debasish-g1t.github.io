@@ -1,0 +1,47 @@
+# =============================================================================
+# Theme definition — "Terminal"
+# -----------------------------------------------------------------------------
+# A structural, old-school terminal skin. It uses the exact same schema as
+# default.yaml (id / name / mode / fonts / colors), so the loader and every
+# component that reads CSS variables keep working unchanged. When this theme is
+# active the app renders a dedicated terminal layout instead of the default
+# card layout — see src/pages/Home/base.js.
+#
+# `mode: auto` follows the OS/browser colour scheme. The in-app toggle (press
+# `m`) switches between the two palettes without touching this file.
+# =============================================================================
+id: terminal
+name: Terminal
+mode: auto
+
+fonts:
+  # The terminal skin is monospace-first everywhere.
+  primary: "'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace"
+  heading: "'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace"
+  mono: "'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace"
+
+colors:
+  dark:
+    bg: "#0b0f0b"
+    bg_gradient: "linear-gradient(180deg, #0b0f0b 0%, #0b0f0b 100%)"
+    surface: "rgba(51, 255, 102, 0.06)"
+    surface_glass: "rgba(11, 15, 11, 0.9)"
+    text: "#c6f2d0"
+    text_muted: "rgba(198, 242, 208, 0.55)"
+    accent: "#33ff66"
+    accent_2: "#66ffcc"
+    border: "rgba(51, 255, 102, 0.35)"
+    badge: "rgba(51, 255, 102, 0.10)"
+    rail: "linear-gradient(180deg, #33ff66 0%, #66ffcc 100%)"
+  light:
+    bg: "#f5f8f5"
+    bg_gradient: "linear-gradient(180deg, #f5f8f5 0%, #f5f8f5 100%)"
+    surface: "rgba(15, 90, 40, 0.05)"
+    surface_glass: "rgba(245, 248, 245, 0.9)"
+    text: "#10231a"
+    text_muted: "rgba(16, 35, 26, 0.6)"
+    accent: "#0e9f3f"
+    accent_2: "#0d7a7a"
+    border: "rgba(14, 159, 63, 0.35)"
+    badge: "rgba(14, 159, 63, 0.08)"
+    rail: "linear-gradient(180deg, #0e9f3f 0%, #0d7a7a 100%)"

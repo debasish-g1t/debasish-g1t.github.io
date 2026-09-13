@@ -1,9 +1,0 @@
-
-.projects-main-container .heading-container{
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: flex-start;
-    font-size: 2.67rem;    
-    z-index: 1;
-}

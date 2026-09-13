@@ -1,17 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
+/* ---------------------------------------------------------------------------
+ * Fallback theme variables.
+ *
+ * The real values come from public/content/themes/default.yaml and are written
+ * onto <html> as inline styles by src/content/themeLoader.js. These fallbacks
+ * exist so the page never paints unstyled if the theme file is slow to load.
+ * ------------------------------------------------------------------------- */
 :root {
-    --primary-background: rgb(5, 0, 22);
-    --primary-font: "Lato", sans-serif;
-    --main-back-gradient: linear-gradient(315deg,
-            hsl(254deg 100% 4%) 0%,
-            hsl(253deg 91% 4%) 21%,
-            hsl(253deg 82% 4%) 30%,
-            hsl(253deg 72% 4%) 39%,
-            hsl(253deg 62% 4%) 46%,
-            hsl(252deg 52% 4%) 54%,
-            hsl(252deg 41% 4%) 61%,
-            hsl(252deg 29% 4%) 69%,
-            hsl(251deg 15% 4%) 79%,
-            hsl(0deg 0% 4%) 100%);
+  --font-primary: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-heading: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --bg: #0b0f0b;
+  --bg-gradient: linear-gradient(180deg, #0b0f0b 0%, #0b0f0b 100%);
+  --surface: rgba(51, 255, 102, 0.06);
+  --surface-glass: rgba(11, 15, 11, 0.9);
+  --text: #c6f2d0;
+  --text-muted: rgba(198, 242, 208, 0.55);
+  --accent: #33ff66;
+  --accent-2: #66ffcc;
+  --border: rgba(51, 255, 102, 0.35);
+  --badge: rgba(51, 255, 102, 0.10);
+  --rail: linear-gradient(180deg, #33ff66 0%, #66ffcc 100%);
+
+  --topbar-height: 56px;
 }

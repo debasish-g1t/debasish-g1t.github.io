@@ -19,6 +19,14 @@
     background: rgba(255, 255, 255, 0.262);
 }
 
+.tl-toggle {
+    transition: background-color 0.2s ease;
+}
+
+.tl-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
 .time-text-content {
     font-size: 1.5rem !important;
     transform: translateX(-50px) !important;
@@ -110,4 +118,49 @@
     height: 2px;
     background-color: white;
     width: 100%;
+}
+
+/* ---------- lightweight hover / mount micro-interactions ---------- */
+.link-a {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.link-a:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+
+.org-img-container img {
+    transition: transform 0.25s ease;
+}
+
+.org-img-container img:hover {
+    transform: scale(1.05);
+}
+
+.work-profile-item {
+    animation: card-in 0.35s ease both;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.work-profile-item:hover {
+    transform: translateY(-3px);
+    background-color: rgba(255, 255, 255, 0.34);
+}
+
+@keyframes card-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .work-profile-item {
+        animation: none;
+    }
 }

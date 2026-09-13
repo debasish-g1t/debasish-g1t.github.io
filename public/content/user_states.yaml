@@ -1,0 +1,55 @@
+# =============================================================================
+# User states (year-based)
+# -----------------------------------------------------------------------------
+# The right-hand card is a *state*. As the user scrolls the timeline, the year
+# of the entry currently in view selects one of the states below.
+#
+# Stickers are NOT written here — they are derived automatically from the
+# timeline content (main-timeline.yaml) for that year:
+#   Education                  -> Student
+#   Education (completed)      -> Graduate
+#   Organization               -> Employee
+#   Research Publication       -> Researcher
+#   International Conference   -> Researcher
+#   ongoing entry              -> Active
+# =============================================================================
+person:
+  name: Debasish Mohanty
+  image: ./assets/icons/user_image_placeholder.jpg
+  tagline: Weaving worlds through code and creativity.
+  contacts:
+    - label: email
+      value: availdebasish@gmail.com
+      url: mailto:availdebasish@gmail.com
+    - label: github
+      value: TRY-ER
+      url: https://github.com/TRY-ER
+
+states:
+  - year: 2022
+    label: Graduate Student
+    description: Completing an M.(Sc).Tech in Material Science, specialising in organic molecules and photovoltaics.
+    image: ./assets/icons/user_image_placeholder.jpg
+
+  - year: 2023
+    label: Research Intern
+    description: Research intern at CIPET LARPM and AIC-NITF, publishing ML work on perovskite solar cells.
+    image: ./assets/icons/user_image_placeholder.jpg
+
+  - year: 2024
+    label: Research Intern & JRF
+    description: Contributing to DeepChem through Google Summer of Code and beginning a PhD in Polymer Science.
+    image: ./assets/icons/user_image_placeholder.jpg
+
+  - year: 2025
+    label: PhD Researcher
+    description: Pursuing a PhD in Polymer Science and presenting at AAAI and APM conferences.
+    image: ./assets/icons/user_image_placeholder.jpg
+
+  # `current: true` marks the state shown for the present year (when the page
+  # is at the top). It has no event content of its own — its year is the
+  # current calendar year.
+  - current: true
+    label: PhD Researcher
+    description: Currently pursuing a PhD in Polymer Science — researching polymer informatics and generative AI.
+    image: ./assets/icons/profile_logo.png

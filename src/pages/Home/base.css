@@ -1,146 +1,50 @@
 @import "../../master.css";
 
-.base-home-container {
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    background-image: var(--main-back-gradient);
-    color: white;
-    font-family: var(--primary-font);
-    /* overflow-x: hidden; */
-    padding: 2vh 15vw;
+.app {
+  min-height: 100vh;
 }
 
-
-*::-webkit-scrollbar {
-    width: 5px;
+.app-shell {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 2rem;
+  width: 100%;
+  padding: 1.5rem 2rem 2rem;
+  align-items: start;
 }
 
-*::-webkit-scrollbar-track {
-    background: var(--main-back-gradient);
+.timeline-pane {
+  min-width: 0;
 }
 
-*::-webkit-scrollbar-thumb{
-    background: rgba(255, 255, 255, 0.262);
+.state-pane {
+  position: sticky;
+  top: calc(var(--topbar-height) + 1.5rem);
+  height: calc(100vh - var(--topbar-height) - 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
 }
 
-
-
-.home-header-container {
-    position: fixed;
-    z-index: 100;
-    display: flex;
-    flex-direction: row;
-    width: 70vw;
-    height: 10vh;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2rem;
-    overflow: hidden;
-    backdrop-filter: blur(20px);
-    padding: 20px;
-    border-radius: 20px;
-    transition: height 0.2s ease;
+/* Contacts + control panel travel together as one block so the contacts
+   section never moves when the state card above changes height. */
+.control-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
-.media-container {
-    display: flex;
-    flex-direction: row;
-    width: 30%;
-    justify-content: space-around;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-    z-index: 200;
-}
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem;
+  }
 
-
-
-.profile-logo {
-    width: 2.5vw;
-}
-
-.profile-logo-mob {
-    display: none;
-}
-
-#progress {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    transform: rotate(-90deg);
-    z-index: 999;
-}
-
-circle {
-    stroke-dashoffset: 0;
-    stroke-width: 15%;
-    fill: none;
-}
-
-.bg {
-    stroke: blue;
-    opacity: 0.3;
-}
-
-#progress .indicator {
-    stroke: white;
-}
-
-.indiv-media{
-    width: 30px;
-}
-
-
-@media (max-width: 700px) {
-    .home-header-container {
-        flex-direction: column !important;
-        height: auto !important;
-        max-width: 90vw;
-        width: auto !important;
-        align-items: start !important;
-        transition: height 0.2s ease;
-    }
-
-    .indiv-media {
-        display: none;
-        margin-bottom: 5px;
-    }
-
-    .indiv-media.show {
-        display: flex;
-    }
-
-    .email-id {
-        display: none;
-    }
-
-    .email-id.show {
-        display: flex;
-    }
-
-    .media-container.show {
-        margin-top: 10px;
-        flex-direction: column !important;
-        width: auto !important;
-        align-items: start;
-    }
-
-    .profile-logo-mob {
-        display: flex !important;
-        width: 40px !important;
-    }
-
-    .profile-logo {
-        display: none;
-    }
-
-    .email-id {
-        margin-top: 10px;
-    }
-
-    #progress .indicator {
-        stroke: white;
-        opacity: 0.3;
-    }
+  .state-pane {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
 }

@@ -1,0 +1,674 @@
+/* ---------------------------------------------------------------------------
+ * Terminal theme — visual skin
+ * ---------------------------------------------------------------------------
+ * This is a CSS-only restyle of the existing component tree. Every section and
+ * all underlying data stay exactly where they are; only the chrome (card
+ * backgrounds, rounded borders, glass blur) is removed and replaced with a
+ * flat terminal treatment: single background colour, green rules, monospace
+ * type, and generous vertical separation.
+ * ------------------------------------------------------------------------ */
+
+[data-theme="terminal"] body {
+  background: var(--bg);
+  background-image: none;
+}
+
+/* Hide scrollbars — navigation is snap / infinite-scroll based now. */
+html[data-theme="terminal"] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html[data-theme="terminal"]::-webkit-scrollbar,
+html[data-theme="terminal"] *::-webkit-scrollbar {
+  display: none;
+}
+
+html[data-theme="terminal"] * {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* The terminal top bar is a little taller and has breathing room under the
+   year labels, so the sticky sidebar keeps its offset in sync. */
+html[data-theme="terminal"] {
+  --topbar-height: 84px;
+  /* Each timeline entry fills the viewport and the page snaps from one event
+     to the next, so two events are never on screen at once. */
+  scroll-snap-type: y mandatory;
+  /* Status “codes” shown on the focused entry — tweak these to taste. */
+  --status-ongoing: "[200 OK]";
+  --status-complete: "[301 MOVED]";
+}
+
+/* ---------- top timeline navigation ---------- */
+[data-theme="terminal"] .timeline-bar {
+  height: auto;
+  padding: 0.5rem 2rem 1.25rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--accent);
+  border-radius: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-theme="terminal"] .timeline-bar__inner {
+  gap: 1rem;
+}
+
+[data-theme="terminal"] .timeline-bar__brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+[data-theme="terminal"] .timeline-bar__brand-text {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--accent);
+}
+
+/* Block-style rail: filled/unfilled spans are small pip-install-style blocks
+   (accent blocks over dim blocks), smaller than the brand square, with markers
+   as distinct squares on the same line. */
+[data-theme="terminal"] .timeline-bar__rail {
+  top: 21px;
+  height: 10px;
+  border-radius: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--badge) 0 6px,
+    transparent 6px 8px
+  );
+  border: 0;
+}
+
+[data-theme="terminal"] .timeline-bar__progress {
+  top: 21px;
+  height: 10px;
+  border-radius: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 6px,
+    transparent 6px 8px
+  );
+  box-shadow: none;
+  opacity: 1;
+}
+
+[data-theme="terminal"] .timeline-bar__segment {
+  top: 21px;
+  height: 10px;
+  border-radius: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--dot-color, var(--accent-2)) 0 6px,
+    transparent 6px 8px
+  );
+  opacity: 0.6;
+}
+
+[data-theme="terminal"] .timeline-bar__dot {
+  top: 26px;
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  background: var(--bg);
+  border: 1.5px solid var(--dot-color, var(--accent));
+  opacity: 0.9;
+}
+
+[data-theme="terminal"] .timeline-bar__dot.is-active,
+[data-theme="terminal"] .timeline-bar__dot:hover,
+[data-theme="terminal"] .timeline-bar__dot:focus-visible {
+  background: var(--dot-color, var(--accent));
+}
+
+[data-theme="terminal"] .timeline-bar__mark {
+  top: 38px;
+}
+
+[data-theme="terminal"] .timeline-bar__mark::before {
+  display: none;
+}
+
+[data-theme="terminal"] .timeline-bar__mark-label {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+[data-theme="terminal"] .timeline-bar__tooltip-date {
+  font-family: var(--font-mono);
+}
+
+[data-theme="terminal"] .timeline-bar__tooltip {
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 0;
+}
+
+/* Caption + thin bar above the highlighted duration span so the reader sees
+   how long the focused project ran / is running. */
+[data-theme="terminal"] .timeline-bar__duration {
+  position: absolute;
+  top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  overflow: visible;
+}
+
+[data-theme="terminal"] .timeline-bar__duration-bar {
+  margin-top: 3px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.45;
+}
+
+[data-theme="terminal"] .timeline-bar__duration-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--accent);
+  white-space: nowrap;
+  background: var(--bg);
+  padding: 0 0.4rem;
+}
+
+/* ---------- main grid: wider state column + active-colour separator ---------- */
+[data-theme="terminal"] .app-shell {
+  grid-template-columns: 30% minmax(0, 1fr);
+  gap: 0;
+  padding: 2rem 2.5rem 3rem;
+}
+
+[data-theme="terminal"] .state-pane {
+  z-index: 1;
+  padding-right: 2.5rem;
+}
+
+/* Contacts are glued to the control panel (single divider between them). */
+[data-theme="terminal"] .control-stack {
+  gap: 0;
+}
+
+/* Dedicated vertical separator line. No glow — just a slightly thicker line
+   whose colour tracks the active entry. */
+[data-theme="terminal"] .state-pane::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--active-color, var(--accent));
+  opacity: 0.75;
+  transition: background-color 0.25s ease;
+  pointer-events: none;
+}
+
+[data-theme="terminal"] .timeline-pane {
+  padding-left: 2.5rem;
+  margin: 0;
+}
+
+[data-theme="terminal"] .timeline-view {
+  max-width: min(100%, 46rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 900px) {
+  [data-theme="terminal"] .app-shell {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+  }
+
+  [data-theme="terminal"] .state-pane {
+    padding-right: 0;
+    padding-bottom: 1.5rem;
+  }
+
+  [data-theme="terminal"] .state-pane::after {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: 2px;
+  }
+
+  [data-theme="terminal"] .timeline-pane {
+    padding-left: 0;
+    margin: 0;
+  }
+}
+
+/* ---------- sidebar: state + control panel ---------- */
+[data-theme="terminal"] .state-card,
+[data-theme="terminal"] .control-panel {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-theme="terminal"] .state-card {
+  align-items: flex-start;
+  text-align: left;
+  border: 0;
+  padding-bottom: 1.35rem;
+}
+
+[data-theme="terminal"] .state-card__photo {
+  border-radius: 0;
+  box-shadow: 0 0 0 3px var(--border);
+}
+
+[data-theme="terminal"] .state-card__name,
+[data-theme="terminal"] .state-card__label,
+[data-theme="terminal"] .state-card__date {
+  font-family: var(--font-mono);
+}
+
+[data-theme="terminal"] .state-card__time {
+  font-size: 1.65rem;
+}
+
+[data-theme="terminal"] .state-card__date {
+  font-size: 0.85rem;
+}
+
+[data-theme="terminal"] .state-card__name {
+  font-size: 1.45rem;
+}
+
+[data-theme="terminal"] .state-card__label {
+  font-size: 1rem;
+  color: var(--accent);
+}
+
+[data-theme="terminal"] .state-card__description {
+  font-size: 0.98rem;
+}
+
+[data-theme="terminal"] .state-card__sticker {
+  font-size: 0.85rem;
+}
+
+[data-theme="terminal"] .state-card__stickers {
+  justify-content: flex-start;
+}
+
+[data-theme="terminal"] .state-card__sticker {
+  border-radius: 0;
+}
+
+[data-theme="terminal"] .control-panel {
+  border-top: 1px solid var(--border);
+  padding-top: 1.35rem;
+}
+
+/* ---------- contacts ---------- */
+[data-theme="terminal"] .contacts {
+  border-top: 1px solid var(--border);
+  /* Match the control panel's horizontal padding so content lines up. */
+  padding: 1rem 1.1rem 1.35rem;
+}
+
+[data-theme="terminal"] .contacts__title {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+[data-theme="terminal"] .contacts__link,
+[data-theme="terminal"] .contacts__label {
+  font-family: var(--font-mono);
+}
+
+[data-theme="terminal"] .contacts__label {
+  color: var(--accent);
+}
+
+[data-theme="terminal"] .contacts__value {
+  color: var(--text-muted);
+}
+
+[data-theme="terminal"] .contacts__link:hover .contacts__value,
+[data-theme="terminal"] .contacts__link:focus-visible .contacts__value {
+  color: var(--accent);
+}
+
+[data-theme="terminal"] .control-panel__title,
+[data-theme="terminal"] .control-panel__section-title {
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
+[data-theme="terminal"] .control-panel__action {
+  border-radius: 0;
+}
+
+[data-theme="terminal"] .control-panel__search-input {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  font-family: var(--font-mono);
+}
+
+[data-theme="terminal"] .control-panel__item,
+[data-theme="terminal"] .control-panel__label {
+  font-family: var(--font-mono);
+}
+
+[data-theme="terminal"] .control-panel__check {
+  border-radius: 0;
+}
+
+/* ---------- timeline entries ---------- */
+[data-theme="terminal"] .floating-date {
+  /* One caption above the first entry; it scrolls away rather than hovering
+     over the full-page event snap sections. */
+  position: static;
+  width: fit-content;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0.5rem 0;
+  margin: 0.75rem 0 1.5rem;
+}
+
+[data-theme="terminal"] .floating-date__label {
+  font-family: var(--font-mono);
+}
+
+[data-theme="terminal"] .floating-date__label::before {
+  content: "❯ ";
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+
+[data-theme="terminal"] .floating-date__label::after {
+  content: "▮";
+  margin-left: 0.4rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  animation: terminal-caret 1.05s steps(1) infinite;
+}
+
+[data-theme="terminal"] .timeline-entries {
+  gap: 0;
+}
+
+[data-theme="terminal"] .timeline-entry {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 4vh 0;
+  transition: none;
+  /* One event per viewport: each entry is a full screen (below the pinned
+     top bar) and is a snap point so the next event only arrives on scroll.
+     The content is centred vertically inside that screen. */
+  min-height: calc(100vh - var(--topbar-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+  scroll-margin-top: var(--topbar-height);
+}
+
+/* Keep the time tag + event type tag on one line inside the centred column. */
+[data-theme="terminal"] .timeline-entry__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1.25rem;
+  margin-bottom: 0.6rem;
+}
+
+[data-theme="terminal"] .timeline-entry--active {
+  border-bottom-color: var(--accent);
+  box-shadow: none;
+}
+
+/* Status cluster on the focused entry — a separate status tag ([200 OK] /
+   [301 MOVED]) and a separate position counter ("3 / 20"), coloured like the
+   separator. */
+[data-theme="terminal"] .timeline-entry__status {
+  position: absolute;
+  top: 1.2rem;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  pointer-events: none;
+}
+
+[data-theme="terminal"] .timeline-entry__status-tag {
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--active-color, var(--accent));
+  border: 1px solid var(--active-color, var(--accent));
+  border-radius: 3px;
+  background: transparent;
+  white-space: nowrap;
+}
+
+[data-theme="terminal"] .timeline-entry__status-count {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+[data-theme="terminal"] .timeline-entry__timeframe,
+[data-theme="terminal"] .timeline-entry__badge,
+[data-theme="terminal"] .timeline-entry__title,
+[data-theme="terminal"] .timeline-entry__org-key {
+  font-family: var(--font-mono);
+}
+
+[data-theme="terminal"] .timeline-entry__badge {
+  border-radius: 0;
+}
+
+[data-theme="terminal"] .timeline-entry__image {
+  border-radius: 0;
+  border: 1px solid var(--border);
+  max-height: 45vh;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Org logos: use their natural size (some are tiny and were stuck in a small
+   fixed box), but cap the size so a big logo cannot distort the page. The
+   backdrop colour comes per-logo from the YAML (`c_img_bg`); without one the
+   logo renders transparent so images that carry their own background stay
+   clean. */
+[data-theme="terminal"] .timeline-entry__org-img img {
+  width: auto;
+  height: auto;
+  min-width: 64px;
+  min-height: 64px;
+  max-width: 200px;
+  max-height: 150px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px;
+  object-fit: contain;
+}
+
+[data-theme="terminal"] .timeline-entry__org {
+  background: transparent;
+  border: 0;
+  border-left: 3px solid var(--accent);
+  border-radius: 0;
+  padding: 0.35rem 0 0.35rem 0.9rem;
+}
+
+[data-theme="terminal"] .timeline-entry__project {
+  background: transparent;
+  border: 0;
+  border-left: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0.35rem 0 0.35rem 0.9rem;
+}
+
+[data-theme="terminal"] .timeline-entry__project h4 {
+  font-family: var(--font-mono);
+}
+
+[data-theme="terminal"] .timeline-entry__link {
+  border-radius: 0;
+  font-family: var(--font-mono);
+}
+
+/* ---------- "scroll to continue" hint under every full-page event ---------- */
+[data-theme="terminal"] .timeline-entries > .timeline-entry::before {
+  content: "▼ scroll to continue";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.25rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  animation: terminal-hint-bounce 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+[data-theme="terminal"] .timeline-entries > .timeline-entry:last-child::before {
+  content: "▲ scroll up for more";
+}
+
+[data-theme="terminal"] .timeline-entry:only-child::before {
+  content: none;
+}
+
+@keyframes terminal-hint-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 0.4;
+  }
+}
+
+/* ---------- light palette: darken category colours ----------
+   Category colours come from the content YAML (cyan, light green, …) and are
+   tuned for the dark palette. On a light background they wash out, so mix them
+   toward black wherever they are used as text / markers. */
+[data-theme="terminal"][data-color-mode="light"] .timeline-entry__badge,
+[data-theme="terminal"][data-color-mode="light"] .timeline-entry__timeframe {
+  color: color-mix(in srgb, var(--cat-color, var(--accent)) 55%, #000);
+}
+
+[data-theme="terminal"][data-color-mode="light"] .timeline-entry__status-tag {
+  color: color-mix(in srgb, var(--active-color, var(--accent)) 50%, #000);
+  border-color: color-mix(
+    in srgb,
+    var(--active-color, var(--accent)) 50%,
+    #000
+  );
+}
+
+[data-theme="terminal"][data-color-mode="light"] .timeline-entry__status-count {
+  color: var(--text);
+}
+
+[data-theme="terminal"][data-color-mode="light"]
+  .timeline-bar__duration-label {
+  color: color-mix(in srgb, var(--accent) 55%, #000);
+}
+
+[data-theme="terminal"][data-color-mode="light"] .timeline-entry__badge {
+  border-color: color-mix(in srgb, var(--cat-color, var(--accent)) 55%, #000);
+}
+
+[data-theme="terminal"][data-color-mode="light"] .timeline-entry__timeframe-dot {
+  background: color-mix(in srgb, var(--cat-color, var(--accent)) 55%, #000);
+}
+
+[data-theme="terminal"][data-color-mode="light"] .timeline-bar__dot {
+  border-color: color-mix(in srgb, var(--dot-color, var(--accent)) 60%, #000);
+}
+
+[data-theme="terminal"][data-color-mode="light"] .timeline-bar__dot.is-active,
+[data-theme="terminal"][data-color-mode="light"] .timeline-bar__dot:hover,
+[data-theme="terminal"][data-color-mode="light"] .timeline-bar__dot:focus-visible {
+  background: color-mix(in srgb, var(--dot-color, var(--accent)) 60%, #000);
+}
+
+[data-theme="terminal"][data-color-mode="light"] .timeline-bar__segment {
+  background-image: repeating-linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--dot-color, var(--accent-2)) 60%, #000) 0 6px,
+    transparent 6px 8px
+  );
+}
+
+[data-theme="terminal"][data-color-mode="light"] .timeline-bar__tooltip-date {
+  color: color-mix(in srgb, var(--dot-color, var(--accent)) 60%, #000);
+}
+
+[data-theme="terminal"][data-color-mode="light"] .control-panel__check {
+  border-color: color-mix(in srgb, var(--cat-color, var(--accent)) 60%, #000);
+}
+
+[data-theme="terminal"][data-color-mode="light"]
+  .control-panel__item
+  input:checked
+  + .control-panel__check {
+  background: color-mix(in srgb, var(--cat-color, var(--accent)) 60%, #000);
+  border-color: color-mix(in srgb, var(--cat-color, var(--accent)) 60%, #000);
+}
+
+[data-theme="terminal"][data-color-mode="light"]
+  .control-panel__item
+  input:checked
+  + .control-panel__check::after {
+  border-color: #fff;
+}
+
+@keyframes terminal-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="terminal"] .floating-date__label::after {
+    animation: none;
+  }
+
+  [data-theme="terminal"] .timeline-entry:first-child::before,
+  [data-theme="terminal"] .timeline-entry:last-child::before {
+    animation: none;
+  }
+}

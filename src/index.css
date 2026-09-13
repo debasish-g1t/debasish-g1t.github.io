@@ -2,17 +2,30 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+html {
+  background: var(--bg);
+}
+
+/* Match native widgets (scrollbars, inputs) to the active palette. */
+html[data-color-mode="dark"] {
+  color-scheme: dark;
+}
+
+html[data-color-mode="light"] {
+  color-scheme: light;
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-primary);
+  color: var(--text);
+  background: var(--bg);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: var(--font-mono);
 }

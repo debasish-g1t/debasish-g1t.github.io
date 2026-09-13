@@ -1,0 +1,138 @@
+.tour {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+/* Full-screen, transparent click-catcher so tapping anywhere skips. */
+.tour__click {
+  position: fixed;
+  inset: 0;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Spotlight: bright border around the target; the huge box-shadow dims the rest. */
+.tour__spotlight {
+  position: fixed;
+  z-index: 1001;
+  pointer-events: none;
+  border: 2px solid var(--accent);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 9999px rgba(0, 0, 0, 0.55),
+    0 0 22px var(--accent);
+  transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.tour__callout {
+  position: fixed;
+  z-index: 1002;
+  width: 280px;
+  padding: 1rem 1.1rem;
+  background: var(--surface-glass);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: top 0.3s ease, left 0.3s ease, bottom 0.3s ease, right 0.3s ease;
+  animation: tour-pop 0.25s ease both;
+}
+
+@keyframes tour-pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Arrow / tail pointing toward the highlighted section. */
+.tour__arrow {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--surface-glass);
+  transform: rotate(45deg);
+}
+
+.tour__arrow--bottom {
+  top: -7px;
+  left: 50%;
+  margin-left: -7px;
+}
+
+.tour__arrow--top {
+  bottom: -7px;
+  left: 50%;
+  margin-left: -7px;
+}
+
+.tour__arrow--right {
+  left: -7px;
+  top: 50%;
+  margin-top: -7px;
+}
+
+.tour__arrow--left {
+  right: -7px;
+  top: 50%;
+  margin-top: -7px;
+}
+
+.tour__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.tour__title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.tour__text {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.tour__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tour__counter {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-right: auto;
+}
+
+.tour__skip,
+.tour__next {
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--badge);
+  color: var(--text);
+  transition: background-color 0.2s ease;
+}
+
+.tour__next {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0b14;
+}
+
+.tour__skip:hover {
+  background: var(--surface);
+}
