@@ -260,7 +260,7 @@
               url: https://github.com/TRY-ER/large_scale_question_answering_system
             - title: Know More
               image: ./assets/icons/profile_logo.png
-              url: https://try-er.github.io/debasish/#/exp-indiv/large-scale-qna
+              url: https://debasish-g1t.github.io/#/exp-indiv/large-scale-qna
       stack:
         - image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQShzFsCcn2XFanVgk0xiEgPGicINuEgO2ADw&s
           url: https://www.langchain.com/
@@ -326,7 +326,7 @@
           links:
             - title: Learn More
               image: ./assets/icons/profile_logo.png
-              url: https://try-er.github.io/debasish/#/project-indiv/PSC-regressor
+              url: https://debasish-g1t.github.io/#/project-indiv/PSC-regressor
       links:
         - text: Read Here
           image: https://onlinelibrary.wiley.com/pb-assets/hub-assets/pericles/logo-header-1690978619437.png
@@ -422,7 +422,7 @@
           links:
             - title: Know More
               image: ./assets/icons/profile_logo.png
-              url: https://try-er.github.io/debasish/#/project-indiv/toxicity
+              url: https://debasish-g1t.github.io/#/project-indiv/toxicity
       stack:
         - image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcR5U16C8yXgBpl7-Bc7Itjx3_LRl425zINA&s
           url: https://react.dev/
@@ -473,7 +473,7 @@
           links:
             - title: Know More
               image: ./assets/icons/profile_logo.png
-              url: https://try-er.github.io/debasish/#/project-indiv/stability
+              url: https://debasish-g1t.github.io/#/project-indiv/stability
             - title: View Final Report
               image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMvKZmgNZh6hd7R6xpCGskb2j5OE582uKF0w&s
               url: https://drive.google.com/file/d/1gujccK3Vqqj9qmm__d3ywOpngdUBGO8y/view
